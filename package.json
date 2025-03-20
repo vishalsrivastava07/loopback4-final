@@ -1,0 +1,77 @@
+{
+  "name": "loopbackintro",
+  "version": "0.0.1",
+  "description": "loopbackintro",
+  "keywords": [
+    "loopback-application",
+    "loopback"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": "18 || 20 || 22"
+  },
+  "scripts": {
+    "build": "lb-tsc",
+    "build:watch": "lb-tsc --watch",
+    "lint": "npm run eslint && npm run prettier:check",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",
+    "prettier:check": "npm run prettier:cli -- -l",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "eslint": "lb-eslint --report-unused-disable-directives .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "pretest": "npm run rebuild",
+    "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
+    "posttest": "npm run lint",
+    "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
+    "docker:build": "docker build -t loopbackintro .",
+    "docker:run": "docker run -p 3000:3000 -d loopbackintro",
+    "premigrate": "npm run build",
+    "migrate": "db-migrate up",
+    "preopenapi-spec": "npm run build",
+    "openapi-spec": "node ./dist/openapi-spec",
+    "prestart": "npm run rebuild",
+    "start": "node -r source-map-support/register .",
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
+    "rebuild": "npm run clean && npm run build",
+    "migrate:down": "db-migrate down",
+    "migrate:create": "db-migrate create"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "VishalSrivastava-007 <vishal.srivastava1@sourcefuse.com>",
+  "license": "",
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
+  "dependencies": {
+    "@loopback/boot": "^7.0.11",
+    "@loopback/core": "^6.1.8",
+    "@loopback/repository": "^7.0.11",
+    "@loopback/rest": "^14.0.11",
+    "@loopback/rest-explorer": "^7.0.11",
+    "@loopback/sequelize": "^0.6.12",
+    "@loopback/service-proxy": "^7.0.11",
+    "loopback-connector-postgresql": "^7.1.11",
+    "tslib": "^2.0.0",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@loopback/build": "^11.0.10",
+    "@loopback/eslint-config": "^15.0.5",
+    "@loopback/testlab": "^7.0.11",
+    "@types/node": "^16.18.126",
+    "@types/uuid": "^10.0.0",
+    "db-migrate": "^0.11.14",
+    "db-migrate-pg": "^1.5.2",
+    "eslint": "^8.57.1",
+    "source-map-support": "^0.5.21",
+    "typescript": "~5.2.2"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "dev": {
+    "driver": "pg",
+    "host": "localhost",
+    "database": "loopbackintro",
+    "user": "postgres",
+    "password": "vishal"
+  }
+}
