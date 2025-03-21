@@ -88,3 +88,4 @@ export interface BooksRelations {
 }
 
 export type BooksWithRelations = Books & BooksRelations;
+

@@ -36,3 +36,5 @@ export interface AuthorsRelations {
 }
 
 export type AuthorsWithRelations = Authors & AuthorsRelations;
+
+

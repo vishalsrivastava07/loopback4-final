@@ -17,7 +17,7 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {Authors} from '../models';
+import {Authors, Books} from '../models';
 import {AuthorsRepository} from '../repositories';
 
 export class AuthorsController {
@@ -146,5 +146,24 @@ export class AuthorsController {
   })
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.authorsRepository.deleteById(id);
+  }
+
+  @get('/authors/{id}/books')
+  @response(200, {
+    description: 'Array of Books belonging to the Author',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(Books, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async findBooks(
+    @param.path.string('id') id: string,
+    @param.query.object('filter') filter?: Filter<Books>,
+  ): Promise<Books[]> {
+    return this.authorsRepository.books(id).find(filter);
   }
 }
